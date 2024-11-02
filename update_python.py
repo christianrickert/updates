@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# See: https://docs.python.org/3/tutorial/appendix.html#executable-python-scripts
-# See: https://pip.pypa.io/en/latest/user_guide/#using-pip-from-your-program
-
 # imports
 import json
 import subprocess
@@ -25,12 +22,12 @@ def find_outdated_modules():
     outdated_modules = [
         outdated_module["name"] for outdated_module in outdated_dictionary
     ] or None  # name (values)
-    print(f"\tFound: {outdated_modules}")
+    print(f"\tOld: {outdated_modules}")
     return outdated_modules
 
 
-def update_outdated_modules(outdated_modules=[]):
-    """Update outdated module based on names from a `pip` JSON data structure.
+def update_outdated_modules(outdated_modules=None):
+    """Update outdated modules based on names from a `pip` JSON data structure.
 
     Keyword arguments:
     outdated_modules - list of outdated module names
@@ -42,9 +39,10 @@ def update_outdated_modules(outdated_modules=[]):
             + [f"{outdated_module}" for outdated_module in outdated_modules]
         )
     else:
-        print("\tDone: None")
+        print("\tNew: None")
 
 
 # main code
-names = find_outdated_modules()
-update_outdated_modules(outdated_modules=names)
+if __name__ == "__main__":
+    names = find_outdated_modules()
+    update_outdated_modules(names)

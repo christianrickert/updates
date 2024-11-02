@@ -21,7 +21,7 @@ def find_outdated_modules():
     )  # name, version, latest_version, latest_filetype (keys)
     outdated_modules = [
         outdated_module["name"] for outdated_module in outdated_dictionary
-    ] or None  # name (values)
+    ] or None  # name (value)
     print(f"\tOld: {outdated_modules}")
     return outdated_modules
 

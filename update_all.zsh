@@ -23,17 +23,17 @@ URL:        https://github.com/christianrickert/updates
 
 clear
 echo "================================================================================"
-echo "                                      Brew                                      "
+echo "                                    🍺 Brew                                     "
 echo "================================================================================"
 brew update && yes | brew upgrade --verbose && brew autoremove && brew cleanup --scrub
 echo
 echo "================================================================================"
-echo "                                      Rust                                      "
+echo "                                    🦀 Rust                                     "
 echo "================================================================================"
 rustup self update && rustup update
 echo
 echo "================================================================================"
-echo "                                     Python                                     "
+echo "                                    🐍 Python                                   "
 echo "================================================================================"
 python ~/update_python.py
 echo

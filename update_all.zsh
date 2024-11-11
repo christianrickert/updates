@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Author:     Christian Rickert <rc.email@icloud.com>
 
 Title:      update_all.py
-Summary:    Update Homebrew, Rust, and Python (2024-11-04)
+Summary:    Update Homebrew, Rust, and Python (2024-11-11)
 URL:        https://github.com/christianrickert/updates
 """
 
@@ -35,5 +35,5 @@ echo
 echo "================================================================================"
 echo "                                    🐍 Python                                   "
 echo "================================================================================"
-python ~/update_python.py
+update_python.py
 echo

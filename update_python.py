@@ -19,14 +19,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Author:     Christian Rickert <rc.email@icloud.com>
 
 Title:      update_python.py
-Summary:    Update Python modules via `pip` (2024-11-04)
+Summary:    Update Python modules via `pip` (2024-11-11)
 URL:        https://github.com/christianrickert/updates
 """
 
 # imports
 import json
+import os
 import subprocess
 import sys
+
+
+os.environ["PIP_DISABLE_PIP_VERSION_CHECK"] = "True"  # don't check PyPI for new version
+os.environ["PIP_EXCLUDE"] = "packaging pip wheel"  # may be externally managed
 
 
 # functions
@@ -37,7 +42,15 @@ def clear_module_cache():
     None
     """
     print("=> Clearing cached modules...")
-    subprocess.check_call([sys.executable, "-m", "pip", "cache", "purge"])
+    subprocess.check_call(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "cache",
+            "purge",
+        ]
+    )
 
 
 def find_outdated_modules():
@@ -56,8 +69,6 @@ def find_outdated_modules():
                 "list",
                 "--outdated",
                 "--format=json",
-                "--disable-pip-version-check",
-                "--exclude=pip",  # may be externally managed
             ]
         ).decode("utf-8")
     )  # name, version, latest_version, latest_filetype (keys)
@@ -77,8 +88,15 @@ def update_outdated_modules(outdated_modules=None):
     print("=> Updating outdated modules...")
     if outdated_modules:
         subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--upgrade"]
-            + [f"{outdated_module}" for outdated_module in outdated_modules]
+            [
+                sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "--break-system-packages",  # modify externally-managed installation
+                "--upgrade",
+                *outdated_modules,
+            ]
         )
     else:
         print("New: None")

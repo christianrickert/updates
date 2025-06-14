@@ -140,7 +140,6 @@ def update_outdated_modules(outdated_modules=None):
                 "-m",
                 "pip",
                 "install",
-                "--break-system-packages",  # modify externally-managed installation
                 "--compile",
                 "--upgrade",
                 *outdated_modules,
@@ -169,6 +168,8 @@ def update_outdated_modules(outdated_modules=None):
                         *conflict_modules,
                     ]
                 )
+            else:
+                print(upgrade_result.stderr)
     else:
         print("NEW: None")
 

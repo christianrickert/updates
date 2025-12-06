@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 """
 Copyright 2024 Christian Rickert
 
@@ -16,8 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Author:     Christian Rickert <rc.email@icloud.com>
 
-Title:      update_all.py
-Summary:    Update Homebrew, Rust, and Python (2024-11-11)
+Title:      update_all.zsh
+Summary:    Update Homebrew, Rust, and Python (2025-12-06)
 URL:        https://github.com/christianrickert/updates
 """
 

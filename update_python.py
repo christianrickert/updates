@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Author:     Christian Rickert <rc.email@icloud.com>
 
 Title:      update_python.py
-Summary:    Update Python modules via `pip` (2025-06-13)
+Summary:    Update Python modules via `pip` (2026-01-26)
 URL:        https://github.com/christianrickert/updates
 """
 
@@ -30,9 +30,10 @@ import re
 import subprocess
 import sys
 
-
 os.environ["PIP_DISABLE_PIP_VERSION_CHECK"] = "True"  # don't check PyPI for new version
-os.environ["PIP_EXCLUDE"] = "packaging pip wheel"  # may be externally managed
+external_modules = ["packaging", "pip", "wheel"]  # e.g. `brew install python-packaging`
+os.environ["PIP_EXCLUDE"] = ",".join(external_modules)  # externally managed (PEP 668)
+print(",".join(external_modules))
 missing_pattern = re.compile(r"^\S+ [^\s]+ requires (\S+), which is not installed\.$")
 version_pattern = re.compile(
     r"^(\S+) [^\s]+ requires .+ but you have .+ incompatible\.$"
@@ -62,7 +63,9 @@ def check_current_modules():
         for line in check_result.stdout.splitlines():
             missing_match = missing_pattern.match(line.strip())
             if missing_match:
-                missing_modules.add(missing_match.group(1))
+                missing_module = missing_match.group(1)
+                if missing_module not in external_modules:
+                    missing_modules.add(missing_module)
         if missing_modules:
             print("=> Installing missing modules...")
             print(f"ADD: {missing_modules}")
@@ -177,7 +180,7 @@ def update_outdated_modules(outdated_modules=None):
 # main code
 if __name__ == "__main__":
     print(f"=> Using Python executable:\n{sys.executable}")
-    names = find_outdated_modules()
-    update_outdated_modules(names)
+    outdated_modules = find_outdated_modules()
+    update_outdated_modules(outdated_modules)
     check_current_modules()
     clear_module_cache()

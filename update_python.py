@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Author:     Christian Rickert <rc.email@icloud.com>
 
 Title:      update_python.py
-Summary:    Update Python modules via `pip` (2026-01-26)
+Summary:    Update Python modules via `pip` (2026-01-31)
 URL:        https://github.com/christianrickert/updates
 """
 

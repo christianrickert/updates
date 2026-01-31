@@ -121,7 +121,9 @@ def find_outdated_modules():
         ).decode("utf-8")
     )  # name, version, latest_version, latest_filetype (keys)
     outdated_modules = [
-        outdated_module["name"] for outdated_module in outdated_dictionary
+        outdated_module["name"]
+        for outdated_module in outdated_dictionary
+        if outdated_module["name"] not in external_modules
     ] or None  # name (value)
     print(f"OLD: {outdated_modules}")
     return outdated_modules

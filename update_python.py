@@ -93,7 +93,6 @@ external_modules = [
     "zipp",
 ]  # OS-dependent
 os.environ["PIP_EXCLUDE"] = ",".join(external_modules)  # externally managed (PEP 668)
-print(",".join(external_modules))
 missing_pattern = re.compile(r"^\S+ [^\s]+ requires (\S+), which is not installed\.$")
 version_pattern = re.compile(
     r"^(\S+) [^\s]+ requires .+ but you have .+ incompatible\.$"
@@ -212,6 +211,7 @@ def update_outdated_modules(outdated_modules=None):
             ],
             stderr=subprocess.PIPE,
             encoding="utf-8",
+            check=False,
         )
         # restore outdated dependencies
         if upgrade_result.stderr:
@@ -243,6 +243,7 @@ def update_outdated_modules(outdated_modules=None):
 # main code
 if __name__ == "__main__":
     print(f"=> Using Python executable:\n{sys.executable}")
+    print(f"=> External Python modules:\n{', '.join(sorted(external_modules))}")
     outdated_modules = find_outdated_modules()
     update_outdated_modules(outdated_modules)
     check_current_modules()

@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Author:     Christian Rickert <rc.email@icloud.com>
 
 Title:      update_python.py
-Summary:    Update Python modules via `pip` (2026-01-31)
+Summary:    Update Python modules via `pip` (2026-10-02)
 URL:        https://github.com/christianrickert/updates
 """
 
@@ -31,7 +31,67 @@ import subprocess
 import sys
 
 os.environ["PIP_DISABLE_PIP_VERSION_CHECK"] = "True"  # don't check PyPI for new version
-external_modules = ["packaging", "pip", "wheel"]  # e.g. `brew install python-packaging`
+external_modules = [
+    # macOS
+    "packaging",
+    "pip",
+    "wheel",
+    # Ubuntu
+    "attrs",
+    "babel",
+    "beautifulsoup4",
+    "CacheControl",
+    "certifi",
+    "chardet",
+    "click",
+    "cryptography",
+    "cssselect",
+    "dbus-python",
+    "httplib2",
+    "idna",
+    "jaraco.context",
+    "jaraco.functools",
+    "jaraco.text",
+    "jsonpatch",
+    "jsonpointer",
+    "jsonschema",
+    "jsonschema-specifications",
+    "launchpadlib",
+    "lazr.restfulclient",
+    "lazr.uri",
+    "linkify-it-py",
+    "lxml",
+    "markdown-it-py",
+    "more-itertools",
+    "msgpack",
+    "numpy",
+    "oauthlib",
+    "pillow",
+    "platformdirs",
+    "psutil",
+    "pycairo",
+    "Pygments",
+    "PyGObject",
+    "PyJWT",
+    "pyparsing",
+    "python-debian",
+    "referencing",
+    "requests",
+    "rich",
+    "rpds-py",
+    "screen-resolution-extra",
+    "setproctitle",
+    "setuptools",
+    "soupsieve",
+    "typeguard",
+    "typing_extensions",
+    "uc-micro-py",
+    "urllib3",
+    "wadllib",
+    "webencodings",
+    "xdg",
+    "zipp",
+]  # OS-dependent
 os.environ["PIP_EXCLUDE"] = ",".join(external_modules)  # externally managed (PEP 668)
 print(",".join(external_modules))
 missing_pattern = re.compile(r"^\S+ [^\s]+ requires (\S+), which is not installed\.$")
@@ -57,6 +117,7 @@ def check_current_modules():
         ],
         stdout=subprocess.PIPE,
         encoding="utf-8",
+        check=False,
     )
     if check_result.stdout != "No broken requirements found.\n":
         missing_modules = set()

@@ -25,8 +25,8 @@ clear
 echo "================================================================================"
 echo "                                    🫂 Ubuntu                                   "
 echo "================================================================================"
-sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get check &&
-sudo apt-get autoremove && sudo apt-get clean && sudo apt-get moo
+sudo apt-get update && sudo apt-get -y dist-upgrade && sudo apt-get check &&
+sudo apt-get -y autoremove && sudo apt-get clean && sudo apt-get moo
 echo
 echo "================================================================================"
 echo "                                    🦀 Rust                                     "
